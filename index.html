@@ -246,6 +246,8 @@
             justify-content: center;
             font-size: 3em;
             position: relative;
+            background-size: cover;
+            background-position: center;
         }
 
         .resource-thumbnail.video {
@@ -254,6 +256,22 @@
 
         .resource-thumbnail.game {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .resource-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .resource-icon {
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .resource-type {
@@ -481,16 +499,16 @@
 <body>
     <div class="container">
         <header>
-            <h1>?? LenguajeDigital</h1>
+            <h1>LenguajeDigital</h1>
             <p>Repositorio de Recursos Educativos Digitales - Área de Lenguaje</p>
         </header>
 
         <div class="user-bar">
             <div class="user-info">
-                <div class="user-avatar">M</div>
+                <div class="user-avatar">E</div>
                 <div>
-                    <div style="font-weight: bold;">María Fernanda Rodríguez</div>
-                    <div style="font-size: 0.9em; opacity: 0.8;" id="currentRole">Rol: Docente de Lenguaje</div>
+                    <div style="font-weight: bold;">EduConecta 5.0</div>
+                    <div style="font-size: 0.9em; opacity: 0.8;" id="currentRole">Rol: Docente</div>
                 </div>
             </div>
             <div class="role-selector">
@@ -503,7 +521,7 @@
 
         <div class="main-content">
             <aside class="sidebar">
-                <h3>?? Filtros de Búsqueda</h3>
+                <h3>Filtros de Búsqueda</h3>
                 
                 <div class="filter-group">
                     <label>Tipo de Recurso</label>
@@ -559,13 +577,13 @@
                 </div>
 
                 <button class="upload-btn" onclick="openUploadModal()">
-                    ? Subir Recurso
+                    + Subir Recurso
                 </button>
             </aside>
 
             <main class="content-area">
                 <div class="admin-panel" id="adminPanel">
-                    <h3>?? Panel de Administración</h3>
+                    <h3>Panel de Administración</h3>
                     <div class="admin-actions">
                         <button class="admin-btn">Aprobar recursos pendientes (5)</button>
                         <button class="admin-btn">Gestionar usuarios</button>
@@ -577,7 +595,7 @@
 
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="Buscar recursos por título, competencia o palabras clave..." onkeyup="searchResources()">
-                    <button onclick="searchResources()">?? Buscar</button>
+                    <button onclick="searchResources()">Buscar</button>
                 </div>
 
                 <div class="stats">
@@ -605,7 +623,7 @@
     <!-- Modal para subir recurso -->
     <div class="modal" id="uploadModal">
         <div class="modal-content">
-            <h2>? Subir Nuevo Recurso de Lenguaje</h2>
+            <h2>Subir Nuevo Recurso de Lenguaje</h2>
             <form id="uploadForm">
                 <div class="form-group">
                     <label>Título del Recurso *</label>
