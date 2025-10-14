@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LenguajeDigital - Repositorio RED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .user-bar {
+            background: #4a5568;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .role-btn {
+            padding: 8px 15px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .role-btn:hover, .role-btn.active {
+            background: white;
+            color: #4a5568;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #f7fafc;
+            padding: 30px 20px;
+            border-right: 2px solid #e2e8f0;
+        }
+
+        .sidebar h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group label {
+            display: block;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: border 0.3s;
+        }
+
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .upload-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #cbd5e0;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .search-bar button {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #5568d3;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            opacity: 0.9;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .resource-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .resource-thumbnail {
+            height: 180px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            position: relative;
+        }
+
+        .resource-thumbnail.video {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+
+        .resource-thumbnail.game {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .resource-type {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .resource-info {
+            padding: 20px;
+        }
+
+        .resource-info h3 {
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .resource-description {
+            font-size: 0.9em;
+            color: #718096;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .resource-meta {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            background: #edf2f7;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            color: #4a5568;
+        }
+
+        .competency-tag {
+            background: #e6fffa;
+            color: #047857;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            border: 1px solid #10b981;
+        }
+
+        .resource-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            color: #f59e0b;
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .action-btn.primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: #5568d3;
+        }
+
+        .action-btn.secondary {
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        .action-btn.secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-panel {
+            display: none;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            padding: 10px 20px;
+            background: #ffc107;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: #e0a800;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid #e2e8f0;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>?? LenguajeDigital</h1>
+            <p>Repositorio de Recursos Educativos Digitales - Área de Lenguaje</p>
+        </header>
+
+        <div class="user-bar">
+            <div class="user-info">
+                <div class="user-avatar">M</div>
+                <div>
+                    <div style="font-weight: bold;">María Fernanda Rodríguez</div>
+                    <div style="font-size: 0.9em; opacity: 0.8;" id="currentRole">Rol: Docente de Lenguaje</div>
+                </div>
+            </div>
+            <div class="role-selector">
+                <span style="font-size: 0.9em;">Cambiar vista:</span>
+                <button class="role-btn active" onclick="changeRole('docente')">Docente</button>
+                <button class="role-btn" onclick="changeRole('estudiante')">Estudiante</button>
+                <button class="role-btn" onclick="changeRole('administrador')">Admin</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <h3>?? Filtros de Búsqueda</h3>
+                
+                <div class="filter-group">
+                    <label>Tipo de Recurso</label>
+                    <select id="filterType" onchange="filterResources()">
+                        <option value="todos">Todos</option>
+                        <option value="video">Videos</option>
+                        <option value="juego">Juegos Interactivos</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Grado</label>
+                    <select id="filterGrade" onchange="filterResources()">
+                        <option value="todos">Todos los grados</option>
+                        <option value="1">Primero</option>
+                        <option value="2">Segundo</option>
+                        <option value="3">Tercero</option>
+                        <option value="4">Cuarto</option>
+                        <option value="5">Quinto</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Componente</label>
+                    <select id="filterComponent" onchange="filterResources()">
+                        <option value="todos">Todos</option>
+                        <option value="lectura">Lectura</option>
+                        <option value="escritura">Escritura</option>
+                        <option value="oralidad">Oralidad</option>
+                        <option value="gramatica">Gramática</option>
+                        <option value="literatura">Literatura</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Competencia</label>
+                    <select id="filterCompetency" onchange="filterResources()">
+                        <option value="todas">Todas</option>
+                        <option value="comprension">Comprensión Lectora</option>
+                        <option value="produccion">Producción Textual</option>
+                        <option value="comunicativa">Comunicativa</option>
+                        <option value="literaria">Literaria</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Calificación mínima</label>
+                    <select id="filterRating" onchange="filterResources()">
+                        <option value="0">Todas</option>
+                        <option value="4">? 4+ estrellas</option>
+                        <option value="3">? 3+ estrellas</option>
+                    </select>
+                </div>
+
+                <button class="upload-btn" onclick="openUploadModal()">
+                    ? Subir Recurso
+                </button>
+            </aside>
+
+            <main class="content-area">
+                <div class="admin-panel" id="adminPanel">
+                    <h3>?? Panel de Administración</h3>
+                    <div class="admin-actions">
+                        <button class="admin-btn">Aprobar recursos pendientes (5)</button>
+                        <button class="admin-btn">Gestionar usuarios</button>
+                        <button class="admin-btn">Reportes y estadísticas</button>
+                        <button class="admin-btn">Configuración del sistema</button>
+                        <button class="admin-btn">Gestionar metadatos</button>
+                    </div>
+                </div>
+
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Buscar recursos por título, competencia o palabras clave..." onkeyup="searchResources()">
+                    <button onclick="searchResources()">?? Buscar</button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <h4>85</h4>
+                        <p>Recursos de Lenguaje</p>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <h4>48</h4>
+                        <p>Videos Educativos</p>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <h4>37</h4>
+                        <p>Juegos Interactivos</p>
+                    </div>
+                </div>
+
+                <div class="resources-grid" id="resourcesGrid">
+                    <!-- Los recursos se generarán dinámicamente -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal para subir recurso -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <h2>? Subir Nuevo Recurso de Lenguaje</h2>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label>Título del Recurso *</label>
+                    <input type="text" required placeholder="Ej: Comprensión Lectora - Textos Narrativos">
+                </div>
+                
+                <div class="form-group">
+                    <label>Tipo de Recurso *</label>
+                    <select required>
+                        <option value="">Seleccione...</option>
+                        <option value="video">Video Educativo</option>
+                        <option value="juego">Juego Interactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Grado *</label>
+                    <select required>
+                        <option value="">Seleccione...</option>
+                        <option value="1">Primero</option>
+                        <option value="2">Segundo</option>
+                        <option value="3">Tercero</option>
+                        <option value="4">Cuarto</option>
+                        <option value="5">Quinto</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Componente *</label>
+                    <select required>
+                        <option value="">Seleccione...</option>
+                        <option value="lectura">Lectura</option>
+                        <option value="escritura">Escritura</option>
+                        <option value="oralidad">Oralidad</option>
+                        <option value="gramatica">Gramática</option>
+                        <option value="literatura">Literatura</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Competencia *</label>
+                    <select required>
+                        <option value="">Seleccione...</option>
+                        <option value="comprension">Comprensión Lectora</option>
+                        <option value="produccion">Producción Textual</option>
+                        <option value="comunicativa">Comunicativa</option>
+                        <option value="literaria">Literaria</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción *</label>
+                    <textarea required placeholder="Describe el contenido, objetivos de aprendizaje y cómo usar este recurso..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Palabras Clave</label>
+                    <input type="text" placeholder="Ej: cuentos, narrativa, secuencia, personajes">
+                </div>
+
+                <div class="form-group">
+                    <label>URL del Recurso *</label>
+                    <input type="url" required placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label>Duración estimada (minutos)</label>
+                    <input type="number" placeholder="Ej: 15">
+                </div>
+
+                <div class="form-group">
+                    <label>Licencia</label>
+                    <select>
+                        <option>Creative Commons BY</option>
+                        <option>Creative Commons BY-SA</option>
+                        <option>Creative Commons BY-NC</option>
+                        <option>Uso educativo</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" onclick="closeUploadModal()" style="background: #e2e8f0; color: #4a5568;">Cancelar</button>
+                    <button type="submit" style="background: #667eea; color: white;">Subir Recurso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const resources = [
+            {
+                id: 1,
+                title: "Las Vocales Mágicas",
+                type: "video",
+                grade: "1",
+                component: "lectura",
+                competency: "comprension",
+                rating: 4.9,
+                author: "Prof. Laura Martínez",
+                description: "Aprendiendo las vocales de forma divertida con canciones y ejemplos visuales.",
+                icon: "??"
+            },
+            {
+                id: 2,
+                title: "Aprende a Leer - Sílabas",
+                type: "juego",
+                grade: "1",
+                component: "lectura",
+                competency: "comprension",
+                rating: 4.8,
+                author: "Prof. Carlos Mendoza",
+                description: "Juego interactivo para formar palabras con sílabas simples.",
+                icon: "??"
+            },
+            {
+                id: 3,
+                title: "Cuentos para Soñar",
+                type: "video",
+                grade: "2",
+                component: "literatura",
+                competency: "literaria",
+                rating: 4.7,
+                author: "Prof. Ana Patricia Ruiz",
+                description: "Colección de cuentos infantiles narrados con ilustraciones animadas.",
+                icon: "??"
+            },
+            {
+                id: 4,
+                title: "El Abecedario Aventurero",
+                type: "juego",
+                grade: "1",
+                component: "lectura",
+                competency: "comprension",
+                rating: 4.9,
+                author: "Prof. Miguel Ángel Torres",
+                description: "Juego de aventuras para aprender el alfabeto completo.",
+                icon: "??"
+            },
+            {
+                id: 5,
+                title: "Comprensión de Textos Narrativos",
+                type: "video",
+                grade: "3",
+                component: "lectura",
+                competency: "comprension",
+                rating: 4.6,
+                author: "Prof. Diana Carolina López",
+                description: "Estrategias para entender cuentos: personajes, tiempo y lugar.",
+                icon: "??"
+            },
+            {
+                id: 6,
+                title: "Ortografía Divertida",
+                type: "juego",
+                grade: "3",
+                component: "gramatica",
+                competency: "produccion",
+                rating: 4.5,
+                author: "Prof. Roberto Silva",
+                description: "Practica el uso de mayúsculas, tildes y signos de puntuación.",
+                icon: "??"
+            },
+            {
+                id: 7,
+                title: "Escribe tu Propio Cuento",
+                type: "video",
+                grade: "4",
+                component: "escritura",
+                competency: "produccion",
+                rating: 4.8,
+                author: "Prof. Sandra Milena Castro",
+                description: "Guía paso a paso para crear historias originales y creativas.",
+                icon: "??"
+            },
+            {
+                id: 8,
+                title: "Sinónimos y Antónimos",
+                type: "juego",
+                grade: "4",
+                component: "gramatica",
+                competency: "comunicativa",
+                rating: 4.7,
+                author: "Prof. Andrés Felipe Gómez",
+                description: "Juego de relacionar palabras para ampliar vocabulario.",
+                icon: "??"
+            },
+            {
+                id: 9,
+                title: "La Fábula y su Moraleja",
+                type: "video",
+                grade: "5",
+                component: "literatura",
+                competency: "literaria",
+                rating: 4.9,
+                author: "Prof. Patricia Herrera",
+                description: "Análisis de fábulas clásicas y sus enseñanzas.",
+                icon: "??"
+            },
+            {
+                id: 10,
+                title: "Debate y Argumentación",
+                type: "video",
+                grade: "5",
+                component: "oralidad",
+                competency: "comunicativa",
+                rating: 4.6,
+                author: "Prof. Juan Carlos Vargas",
+                description: "Aprende a expresar y defender tus ideas con respeto.",
+                icon: "??"
+            },
+            {
+                id: 11,
+                title: "Constructor de Oraciones",
+                type: "juego",
+                grade: "2",
+                component: "gramatica",
+                competency: "produccion",
+                rating: 4.8,
+                author: "Prof. Claudia Restrepo",
+                description: "Forma oraciones correctas arrastrando sujeto y predicado.",
+                icon: "??"
+            },
+            {
+                id: 12,
+                title: "Poesía para Niños",
+                type: "video",
+                grade: "3",
+                component: "literatura",
+                competency: "literaria",
+                rating: 4.7,
+                author: "Prof. Gloria Inés Pérez",
+                description: "Introducción a la poesía con rimas y versos divertidos.",
+                icon: "??"
+            },
+            {
+                id: 13,
+                title: "Lectura Veloz",
+                type: "juego",
+                grade: "5",
+                component: "lectura",
+                competency: "comprension",
+                rating: 4.5,
+                author: "Prof. Fernando Rojas",
+                description: "Mejora tu velocidad y comprensión lectora con desafíos cronometrados.",
+                icon: "??"
+            },
+            {
+                id: 14,
+                title: "El Sustantivo y sus Clases",
+                type: "video",
+                grade: "4",
+                component: "gramatica",
+                competency: "comunicativa",
+                rating: 4.6,
+                author: "Prof. Martha Lucía Jiménez",
+                description: "Aprende a identificar sustantivos propios, comunes y colectivos.",
+                icon: "??"
+            },
+            {
+                id: 15,
+                title: "Trabalenguas y Adivinanzas",
+                type: "juego",
+                grade: "2",
+                component: "oralidad",
+                competency: "comunicativa",
+                rating: 4.9,
+                author: "Prof. Beatriz Elena Sánchez",
+                description: "Diviértete practicando pronunciación con trabalenguas y resolviendo adivinanzas.",
+                icon: "??"
+            },
+            {
+                id: 16,
+                title: "La Descripción - Personas y Lugares",
+                type: "video",
+                grade: "3",
+                component: "escritura",
+                competency: "produccion",
+                rating: 4.7,
+                author: "Prof. Jaime Humberto Díaz",
+                description: "Aprende a describir con adjetivos y detalles sensoriales.",
+                icon: "??"
+            },
+            {
+                id: 17,
+                title: "El Verbo en Acción",
+                type: "juego",
+                grade: "5",
+                component: "gramatica",
+                competency: "comunicativa",
+                rating: 4.6,
+                author: "Prof. Liliana Marcela Osorio",
+                description: "Identifica verbos y conjúgalos en diferentes tiempos verbales.",
+                icon: "??"
+            },
+            {
+                id: 18,
+                title: "Mitos y Leyendas Colombianas",
+                type: "video",
+                grade: "4",
+                component: "literatura",
+                competency: "literaria",
+                rating: 4.8,
+                author: "Prof. Oscar Alberto Ramírez",
+                description: "Conoce las historias tradicionales de nuestra cultura.",
+                icon: "??"
+            }
